@@ -5,14 +5,14 @@ import { parkSchema, ParkSchemaType,} from '../zod-schema/park_schema';
 const router = express.Router();
 let park : ParkSchemaType[] = [];
 
-//Endpoints rides
-//get
+//Endpoints CRUD rides 
+//1-get
 // status 200 for get
 router.get('/', (req, res, next) => {
   return res.status(200).json(park);
 });
 
-//post
+//2-post
 //status 201 for post
 router.post('/', validate(parkSchema), (req, res, next) => {
   const newpostpark = req.body as ParkSchemaType;
@@ -21,7 +21,7 @@ router.post('/', validate(parkSchema), (req, res, next) => {
   return res.status(201).json({ message: 'was added !' });
 });
 
-//update
+//3-update
 router.put('/:id',validate(parkSchema), (req, res) => {
     const updatepark = req.body as ParkSchemaType;
     const { id } = req.params;
@@ -40,7 +40,7 @@ router.put('/:id',validate(parkSchema), (req, res) => {
   });
 
 
-//delete
+//4-delete
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
     const deletepar = park.filter((par) => {
